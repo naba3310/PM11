@@ -1,0 +1,93 @@
+﻿<Window x:Class="EmployeeTerminal.CheckRequestWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EmployeeTerminal"
+        mc:Ignorable="d"
+        Title="Просмотр заявки" Height="500" Width="600"
+        WindowStartupLocation="CenterOwner">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Заголовок -->
+        <TextBlock Grid.Row="0" Text="Детали заявки" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
+
+        <!-- Основная информация -->
+        <ScrollViewer Grid.Row="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- ID заявки -->
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="ID заявки:" Margin="0,0,10,5"/>
+                <TextBlock x:Name="RequestIdTextBlock" Grid.Row="0" Grid.Column="1" Margin="0,0,0,5"/>
+
+                <!-- Посетитель -->
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="Посетитель:" Margin="0,0,10,5"/>
+                <TextBlock x:Name="UserNameTextBlock" Grid.Row="1" Grid.Column="1" Margin="0,0,0,5"/>
+
+                <!-- Контакты -->
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="Телефон:" Margin="0,0,10,5"/>
+                <TextBlock x:Name="PhoneTextBlock" Grid.Row="2" Grid.Column="1" Margin="0,0,0,5"/>
+
+                <TextBlock Grid.Row="3" Grid.Column="0" Text="Email:" Margin="0,0,10,5"/>
+                <TextBlock x:Name="EmailTextBlock" Grid.Row="3" Grid.Column="1" Margin="0,0,0,5"/>
+
+                <!-- Подразделение -->
+                <TextBlock Grid.Row="4" Grid.Column="0" Text="Подразделение:" Margin="0,0,10,5"/>
+                <TextBlock x:Name="DepartmentTextBlock" Grid.Row="4" Grid.Column="1" Margin="0,0,0,5"/>
+
+                <!-- Даты -->
+                <TextBlock Grid.Row="5" Grid.Column="0" Text="Даты визита:" Margin="0,0,10,5"/>
+                <TextBlock x:Name="DatesTextBlock" Grid.Row="5" Grid.Column="1" Margin="0,0,0,5"/>
+
+                <!-- Статус -->
+                <TextBlock Grid.Row="6" Grid.Column="0" Text="Статус:" Margin="0,0,10,5"/>
+                <TextBlock x:Name="StatusTextBlock" Grid.Row="6" Grid.Column="1" Margin="0,0,0,5"/>
+
+                <!-- Групповой визит -->
+                <TextBlock Grid.Row="7" Grid.Column="0" Text="Групповой визит:" Margin="0,0,10,5"/>
+                <TextBlock x:Name="IsGroupTextBlock" Grid.Row="7" Grid.Column="1" Margin="0,0,0,5"/>
+
+                <!-- Дата посещения -->
+                <TextBlock Grid.Row="8" Grid.Column="0" Text="Дата посещения:" Margin="0,0,10,5"/>
+                <TextBlock x:Name="VisitDateTextBlock" Grid.Row="8" Grid.Column="1" Margin="0,0,0,5"/>
+
+                <!-- Цель -->
+                <TextBlock Grid.Row="9" Grid.Column="0" Text="Цель визита:" Margin="0,0,10,5"/>
+                <TextBlock x:Name="PurposeTextBlock" Grid.Row="9" Grid.Column="1" Margin="0,0,0,5" TextWrapping="Wrap"/>
+
+                <!-- Примечания -->
+                <TextBlock Grid.Row="10" Grid.Column="0" Text="Примечания:" Margin="0,0,10,5"/>
+                <TextBlock x:Name="NotesTextBlock" Grid.Row="10" Grid.Column="1" Margin="0,0,0,5" TextWrapping="Wrap"/>
+            </Grid>
+        </ScrollViewer>
+
+        <!-- Кнопки управления -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+            <Button x:Name="ApproveButton" Content="Одобрить" Width="100" Margin="0,0,10,0" Click="ApproveButton_Click"/>
+            <Button x:Name="RejectButton" Content="Отклонить" Width="100" Margin="0,0,10,0" Click="RejectButton_Click"/>
+            <Button x:Name="CompleteButton" Content="Завершить" Width="100" Click="CompleteButton_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>
