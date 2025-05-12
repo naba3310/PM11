@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище ХранительПРОModelContainer" CdmEntityContainer="ХранительПРОEntities">
+    <EntitySetMapping Name="departments">
+      <EntityTypeMapping TypeName="ХранительПРОModel.departments">
+        <MappingFragment StoreEntitySet="departments">
+          <ScalarProperty Name="department_id" ColumnName="department_id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="documents">
+      <EntityTypeMapping TypeName="ХранительПРОModel.documents">
+        <MappingFragment StoreEntitySet="documents">
+          <ScalarProperty Name="document_id" ColumnName="document_id" />
+          <ScalarProperty Name="request_id" ColumnName="request_id" />
+          <ScalarProperty Name="file_type" ColumnName="file_type" />
+          <ScalarProperty Name="file_path" ColumnName="file_path" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="employees">
+      <EntityTypeMapping TypeName="ХранительПРОModel.employees">
+        <MappingFragment StoreEntitySet="employees">
+          <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+          <ScalarProperty Name="full_name" ColumnName="full_name" />
+          <ScalarProperty Name="department_id" ColumnName="department_id" />
+          <ScalarProperty Name="employee_code" ColumnName="employee_code" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="groups">
+      <EntityTypeMapping TypeName="ХранительПРОModel.groups">
+        <MappingFragment StoreEntitySet="groups">
+          <ScalarProperty Name="group_id" ColumnName="group_id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="department_id" ColumnName="department_id" />
+          <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+          <ScalarProperty Name="request_date" ColumnName="request_date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="request_statuses">
+      <EntityTypeMapping TypeName="ХранительПРОModel.request_statuses">
+        <MappingFragment StoreEntitySet="request_statuses">
+          <ScalarProperty Name="status_id" ColumnName="status_id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="requests">
+      <EntityTypeMapping TypeName="ХранительПРОModel.requests">
+        <MappingFragment StoreEntitySet="requests">
+          <ScalarProperty Name="request_id" ColumnName="request_id" />
+          <ScalarProperty Name="user_id" ColumnName="user_id" />
+          <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+          <ScalarProperty Name="start_date" ColumnName="start_date" />
+          <ScalarProperty Name="end_date" ColumnName="end_date" />
+          <ScalarProperty Name="purpose" ColumnName="purpose" />
+          <ScalarProperty Name="status_id" ColumnName="status_id" />
+          <ScalarProperty Name="is_group" ColumnName="is_group" />
+          <ScalarProperty Name="group_id" ColumnName="group_id" />
+          <ScalarProperty Name="notes" ColumnName="notes" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="ХранительПРОModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="users">
+      <EntityTypeMapping TypeName="ХранительПРОModel.users">
+        <MappingFragment StoreEntitySet="users">
+          <ScalarProperty Name="user_id" ColumnName="user_id" />
+          <ScalarProperty Name="full_name" ColumnName="full_name" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="birth_date" ColumnName="birth_date" />
+          <ScalarProperty Name="passport_series" ColumnName="passport_series" />
+          <ScalarProperty Name="passport_number" ColumnName="passport_number" />
+          <ScalarProperty Name="login" ColumnName="login" />
+          <ScalarProperty Name="password_hash" ColumnName="password_hash" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
