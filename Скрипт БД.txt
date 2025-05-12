@@ -1,0 +1,353 @@
+USE [master]
+GO
+/****** Object:  Database [ХранительПРО]    Script Date: 22.04.2025 0:15:45 ******/
+CREATE DATABASE [ХранительПРО]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'ХранительПРО', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\ХранительПРО.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'ХранительПРО_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\ХранительПРО_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+ WITH CATALOG_COLLATION = DATABASE_DEFAULT, LEDGER = OFF
+GO
+ALTER DATABASE [ХранительПРО] SET COMPATIBILITY_LEVEL = 160
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [ХранительПРО].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [ХранительПРО] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [ХранительПРО] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [ХранительПРО] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [ХранительПРО] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [ХранительПРО] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [ХранительПРО] SET AUTO_CLOSE OFF 
+GO
+ALTER DATABASE [ХранительПРО] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [ХранительПРО] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [ХранительПРО] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [ХранительПРО] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [ХранительПРО] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [ХранительПРО] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [ХранительПРО] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [ХранительПРО] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [ХранительПРО] SET  ENABLE_BROKER 
+GO
+ALTER DATABASE [ХранительПРО] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [ХранительПРО] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [ХранительПРО] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [ХранительПРО] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [ХранительПРО] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [ХранительПРО] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [ХранительПРО] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [ХранительПРО] SET RECOVERY FULL 
+GO
+ALTER DATABASE [ХранительПРО] SET  MULTI_USER 
+GO
+ALTER DATABASE [ХранительПРО] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [ХранительПРО] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [ХранительПРО] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [ХранительПРО] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [ХранительПРО] SET DELAYED_DURABILITY = DISABLED 
+GO
+ALTER DATABASE [ХранительПРО] SET ACCELERATED_DATABASE_RECOVERY = OFF  
+GO
+EXEC sys.sp_db_vardecimal_storage_format N'ХранительПРО', N'ON'
+GO
+ALTER DATABASE [ХранительПРО] SET QUERY_STORE = ON
+GO
+ALTER DATABASE [ХранительПРО] SET QUERY_STORE (OPERATION_MODE = READ_WRITE, CLEANUP_POLICY = (STALE_QUERY_THRESHOLD_DAYS = 30), DATA_FLUSH_INTERVAL_SECONDS = 900, INTERVAL_LENGTH_MINUTES = 60, MAX_STORAGE_SIZE_MB = 1000, QUERY_CAPTURE_MODE = AUTO, SIZE_BASED_CLEANUP_MODE = AUTO, MAX_PLANS_PER_QUERY = 200, WAIT_STATS_CAPTURE_MODE = ON)
+GO
+USE [ХранительПРО]
+GO
+/****** Object:  Table [dbo].[request_statuses]    Script Date: 22.04.2025 0:15:46 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[request_statuses](
+	[status_id] [int] IDENTITY(1,1) NOT NULL,
+	[name] [nvarchar](50) NOT NULL,
+ CONSTRAINT [PK_request_statuses] PRIMARY KEY CLUSTERED 
+(
+	[status_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[departments]    Script Date: 22.04.2025 0:15:46 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[departments](
+	[department_id] [int] IDENTITY(1,1) NOT NULL,
+	[name] [nvarchar](100) NOT NULL,
+ CONSTRAINT [PK_departments] PRIMARY KEY CLUSTERED 
+(
+	[department_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[employees]    Script Date: 22.04.2025 0:15:46 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[employees](
+	[employee_id] [int] IDENTITY(1,1) NOT NULL,
+	[full_name] [nvarchar](100) NOT NULL,
+	[department_id] [int] NULL,
+	[employee_code] [nvarchar](20) NOT NULL,
+ CONSTRAINT [PK_employees] PRIMARY KEY CLUSTERED 
+(
+	[employee_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY],
+ CONSTRAINT [UQ_employee_code] UNIQUE NONCLUSTERED 
+(
+	[employee_code] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[users]    Script Date: 22.04.2025 0:15:46 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[users](
+	[user_id] [int] IDENTITY(1,1) NOT NULL,
+	[full_name] [nvarchar](100) NOT NULL,
+	[phone] [nvarchar](20) NULL,
+	[email] [nvarchar](100) NOT NULL,
+	[birth_date] [date] NOT NULL,
+	[passport_series] [nvarchar](4) NOT NULL,
+	[passport_number] [nvarchar](6) NOT NULL,
+	[login] [nvarchar](50) NOT NULL,
+	[password] [nvarchar](50) NOT NULL,
+ CONSTRAINT [PK_users] PRIMARY KEY CLUSTERED 
+(
+	[user_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY],
+ CONSTRAINT [UQ_email] UNIQUE NONCLUSTERED 
+(
+	[email] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY],
+ CONSTRAINT [UQ_login] UNIQUE NONCLUSTERED 
+(
+	[login] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[requests]    Script Date: 22.04.2025 0:15:46 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[requests](
+	[request_id] [int] IDENTITY(1,1) NOT NULL,
+	[user_id] [int] NULL,
+	[employee_id] [int] NULL,
+	[department_id] [int] NULL,
+	[start_date] [date] NOT NULL,
+	[end_date] [date] NOT NULL,
+	[purpose] [nvarchar](max) NOT NULL,
+	[status_id] [int] NULL,
+	[is_group] [bit] NOT NULL,
+	[notes] [nvarchar](max) NULL,
+	[visit_date] [datetime] NULL,
+	[access_granted] [bit] NULL,
+	[processed_by] [int] NULL,
+	[processed_date] [datetime] NULL,
+ CONSTRAINT [PK_requests] PRIMARY KEY CLUSTERED 
+(
+	[request_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[documents]    Script Date: 22.04.2025 0:15:46 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[documents](
+	[document_id] [int] IDENTITY(1,1) NOT NULL,
+	[request_id] [int] NULL,
+	[file_type] [nvarchar](10) NOT NULL,
+	[file_path] [nvarchar](255) NOT NULL,
+ CONSTRAINT [PK_documents] PRIMARY KEY CLUSTERED 
+(
+	[document_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  View [dbo].[ViewListRequests]    Script Date: 22.04.2025 0:15:46 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE   VIEW [dbo].[ViewListRequests]
+AS
+SELECT 
+    r.request_id AS 'ID заявки',
+    u.full_name AS 'ФИО посетителя',
+    u.phone AS 'Телефон',
+    u.email AS 'Email',
+    d.name AS 'Подразделение',
+    e.full_name AS 'Ответственный сотрудник',
+    FORMAT(r.start_date, 'dd.MM.yyyy') AS 'Дата начала',
+    FORMAT(r.end_date, 'dd.MM.yyyy') AS 'Дата окончания',
+    DATEDIFF(DAY, r.start_date, r.end_date) + 1 AS 'Дней',
+    s.name AS 'Статус',
+    CASE WHEN r.is_group = 1 THEN 'Да' ELSE 'Нет' END AS 'Групповой визит',
+    r.purpose AS 'Цель визита',
+    FORMAT(r.visit_date, 'dd.MM.yyyy HH:mm') AS 'Дата посещения',
+    r.notes AS 'Примечания',
+    (SELECT COUNT(*) FROM documents WHERE request_id = r.request_id) AS 'Кол-во документов'
+FROM 
+    requests r
+LEFT JOIN 
+    users u ON r.user_id = u.user_id
+LEFT JOIN 
+    employees e ON r.employee_id = e.employee_id
+JOIN 
+    departments d ON r.department_id = d.department_id
+JOIN 
+    request_statuses s ON r.status_id = s.status_id
+GO
+ALTER TABLE [dbo].[requests] ADD  DEFAULT ((0)) FOR [is_group]
+GO
+ALTER TABLE [dbo].[documents]  WITH CHECK ADD  CONSTRAINT [FK_documents_requests] FOREIGN KEY([request_id])
+REFERENCES [dbo].[requests] ([request_id])
+GO
+ALTER TABLE [dbo].[documents] CHECK CONSTRAINT [FK_documents_requests]
+GO
+ALTER TABLE [dbo].[employees]  WITH CHECK ADD  CONSTRAINT [FK_employees_departments] FOREIGN KEY([department_id])
+REFERENCES [dbo].[departments] ([department_id])
+GO
+ALTER TABLE [dbo].[employees] CHECK CONSTRAINT [FK_employees_departments]
+GO
+ALTER TABLE [dbo].[requests]  WITH CHECK ADD FOREIGN KEY([processed_by])
+REFERENCES [dbo].[employees] ([employee_id])
+GO
+ALTER TABLE [dbo].[requests]  WITH CHECK ADD  CONSTRAINT [FK_requests_departments] FOREIGN KEY([department_id])
+REFERENCES [dbo].[departments] ([department_id])
+GO
+ALTER TABLE [dbo].[requests] CHECK CONSTRAINT [FK_requests_departments]
+GO
+ALTER TABLE [dbo].[requests]  WITH CHECK ADD  CONSTRAINT [FK_requests_employees] FOREIGN KEY([employee_id])
+REFERENCES [dbo].[employees] ([employee_id])
+GO
+ALTER TABLE [dbo].[requests] CHECK CONSTRAINT [FK_requests_employees]
+GO
+ALTER TABLE [dbo].[requests]  WITH CHECK ADD  CONSTRAINT [FK_requests_statuses] FOREIGN KEY([status_id])
+REFERENCES [dbo].[request_statuses] ([status_id])
+GO
+ALTER TABLE [dbo].[requests] CHECK CONSTRAINT [FK_requests_statuses]
+GO
+ALTER TABLE [dbo].[requests]  WITH CHECK ADD  CONSTRAINT [FK_requests_users] FOREIGN KEY([user_id])
+REFERENCES [dbo].[users] ([user_id])
+GO
+ALTER TABLE [dbo].[requests] CHECK CONSTRAINT [FK_requests_users]
+GO
+ALTER TABLE [dbo].[requests]  WITH CHECK ADD  CONSTRAINT [CHK_EndDate] CHECK  (([end_date]>=[start_date]))
+GO
+ALTER TABLE [dbo].[requests] CHECK CONSTRAINT [CHK_EndDate]
+GO
+/****** Object:  StoredProcedure [dbo].[FilteringRequests]    Script Date: 22.04.2025 0:15:46 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE   PROCEDURE [dbo].[FilteringRequests]
+    @IsGroup BIT = NULL,
+    @DepartmentId INT = NULL,
+    @StatusId INT = NULL,
+    @StartDate DATE = NULL,
+    @EndDate DATE = NULL
+AS
+BEGIN
+    SET NOCOUNT ON;
+    
+    SELECT 
+        r.request_id,
+        u.full_name AS user_name,
+        d.name AS department_name,
+        e.full_name AS employee_name,
+        FORMAT(r.start_date, 'dd.MM.yyyy') AS start_date,
+        FORMAT(r.end_date, 'dd.MM.yyyy') AS end_date,
+        s.name AS status_name,
+        r.purpose,
+        r.is_group,
+        r.visit_date,
+        (SELECT COUNT(*) FROM documents WHERE request_id = r.request_id) AS documents_count
+    FROM 
+        requests r
+    LEFT JOIN 
+        users u ON r.user_id = u.user_id
+    LEFT JOIN 
+        employees e ON r.employee_id = e.employee_id
+    JOIN 
+        departments d ON r.department_id = d.department_id
+    JOIN 
+        request_statuses s ON r.status_id = s.status_id
+    WHERE 
+        (@IsGroup IS NULL OR r.is_group = @IsGroup)
+        AND (@DepartmentId IS NULL OR r.department_id = @DepartmentId)
+        AND (@StatusId IS NULL OR r.status_id = @StatusId)
+        AND (@StartDate IS NULL OR r.start_date >= @StartDate)
+        AND (@EndDate IS NULL OR r.end_date <= @EndDate)
+    ORDER BY 
+        r.request_id DESC;
+END
+GO
+/****** Object:  StoredProcedure [dbo].[GenerateUniqueLogin]    Script Date: 22.04.2025 0:15:46 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[GenerateUniqueLogin]
+    @Email NVARCHAR(100),
+    @GeneratedLogin NVARCHAR(50) OUTPUT
+AS
+BEGIN
+    DECLARE @BaseLogin NVARCHAR(50) = LEFT(@Email, CHARINDEX('@', @Email) - 1);
+    DECLARE @Counter INT = 1;
+    SET @GeneratedLogin = @BaseLogin;
+    
+    WHILE EXISTS (SELECT 1 FROM users WHERE login = @GeneratedLogin)
+    BEGIN
+        SET @GeneratedLogin = @BaseLogin + CAST(@Counter AS NVARCHAR(10));
+        SET @Counter = @Counter + 1;
+    END
+END
+GO
+USE [master]
+GO
+ALTER DATABASE [ХранительПРО] SET  READ_WRITE 
+GO
