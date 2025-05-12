@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище ХранительПРОModel" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="departments">
+    <Key>
+      <PropertyRef Name="department_id" />
+    </Key>
+    <Property Name="department_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="documents">
+    <Key>
+      <PropertyRef Name="document_id" />
+    </Key>
+    <Property Name="document_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="request_id" Type="int" />
+    <Property Name="file_type" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="file_path" Type="nvarchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="employees">
+    <Key>
+      <PropertyRef Name="employee_id" />
+    </Key>
+    <Property Name="employee_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="full_name" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="department_id" Type="int" />
+    <Property Name="employee_code" Type="nvarchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="request_statuses">
+    <Key>
+      <PropertyRef Name="status_id" />
+    </Key>
+    <Property Name="status_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="requests">
+    <Key>
+      <PropertyRef Name="request_id" />
+    </Key>
+    <Property Name="request_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="user_id" Type="int" />
+    <Property Name="employee_id" Type="int" />
+    <Property Name="department_id" Type="int" />
+    <Property Name="start_date" Type="date" Nullable="false" />
+    <Property Name="end_date" Type="date" Nullable="false" />
+    <Property Name="purpose" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="status_id" Type="int" />
+    <Property Name="is_group" Type="bit" Nullable="false" />
+    <Property Name="notes" Type="nvarchar(max)" />
+    <Property Name="visit_date" Type="datetime" />
+  </EntityType>
+  <EntityType Name="users">
+    <Key>
+      <PropertyRef Name="user_id" />
+    </Key>
+    <Property Name="user_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="full_name" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="phone" Type="nvarchar" MaxLength="20" />
+    <Property Name="email" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="birth_date" Type="date" Nullable="false" />
+    <Property Name="passport_series" Type="nvarchar" MaxLength="4" Nullable="false" />
+    <Property Name="passport_number" Type="nvarchar" MaxLength="6" Nullable="false" />
+    <Property Name="login" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="password" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_documents_requests">
+    <End Role="requests" Type="Self.requests" Multiplicity="0..1" />
+    <End Role="documents" Type="Self.documents" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="requests">
+        <PropertyRef Name="request_id" />
+      </Principal>
+      <Dependent Role="documents">
+        <PropertyRef Name="request_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_employees_departments">
+    <End Role="departments" Type="Self.departments" Multiplicity="0..1" />
+    <End Role="employees" Type="Self.employees" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="departments">
+        <PropertyRef Name="department_id" />
+      </Principal>
+      <Dependent Role="employees">
+        <PropertyRef Name="department_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_requests_departments">
+    <End Role="departments" Type="Self.departments" Multiplicity="0..1" />
+    <End Role="requests" Type="Self.requests" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="departments">
+        <PropertyRef Name="department_id" />
+      </Principal>
+      <Dependent Role="requests">
+        <PropertyRef Name="department_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_requests_employees">
+    <End Role="employees" Type="Self.employees" Multiplicity="0..1" />
+    <End Role="requests" Type="Self.requests" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="employees">
+        <PropertyRef Name="employee_id" />
+      </Principal>
+      <Dependent Role="requests">
+        <PropertyRef Name="employee_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_requests_statuses">
+    <End Role="request_statuses" Type="Self.request_statuses" Multiplicity="0..1" />
+    <End Role="requests" Type="Self.requests" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="request_statuses">
+        <PropertyRef Name="status_id" />
+      </Principal>
+      <Dependent Role="requests">
+        <PropertyRef Name="status_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_requests_users">
+    <End Role="users" Type="Self.users" Multiplicity="0..1" />
+    <End Role="requests" Type="Self.requests" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="users">
+        <PropertyRef Name="user_id" />
+      </Principal>
+      <Dependent Role="requests">
+        <PropertyRef Name="user_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Хранилище ХранительПРОModelContainer">
+    <EntitySet Name="departments" EntityType="Self.departments" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="documents" EntityType="Self.documents" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="employees" EntityType="Self.employees" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="request_statuses" EntityType="Self.request_statuses" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="requests" EntityType="Self.requests" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_documents_requests" Association="Self.FK_documents_requests">
+      <End Role="requests" EntitySet="requests" />
+      <End Role="documents" EntitySet="documents" />
+    </AssociationSet>
+    <AssociationSet Name="FK_employees_departments" Association="Self.FK_employees_departments">
+      <End Role="departments" EntitySet="departments" />
+      <End Role="employees" EntitySet="employees" />
+    </AssociationSet>
+    <AssociationSet Name="FK_requests_departments" Association="Self.FK_requests_departments">
+      <End Role="departments" EntitySet="departments" />
+      <End Role="requests" EntitySet="requests" />
+    </AssociationSet>
+    <AssociationSet Name="FK_requests_employees" Association="Self.FK_requests_employees">
+      <End Role="employees" EntitySet="employees" />
+      <End Role="requests" EntitySet="requests" />
+    </AssociationSet>
+    <AssociationSet Name="FK_requests_statuses" Association="Self.FK_requests_statuses">
+      <End Role="request_statuses" EntitySet="request_statuses" />
+      <End Role="requests" EntitySet="requests" />
+    </AssociationSet>
+    <AssociationSet Name="FK_requests_users" Association="Self.FK_requests_users">
+      <End Role="users" EntitySet="users" />
+      <End Role="requests" EntitySet="requests" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
